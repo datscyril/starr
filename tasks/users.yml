@@ -1,0 +1,23 @@
+---
+- name: Install Fish shell
+  apt:
+    name: fish
+
+- name: Create luffy group
+  group:
+    name: luffy
+    gid: 1000
+    state: present
+
+- name: Create luffy user
+  user:
+    name: luffy
+    shell: /usr/bin/fish
+    state: present
+    uid: 1000
+
+- name: Update Luffy group
+  user:
+    name: luffy
+    groups: luffy
+    append: yes

@@ -1,0 +1,14 @@
+---
+sonarr_enabled: false
+sonarr_available_externally: 'false'
+
+# directories
+sonarr_data_directory: '{{ docker_home }}/sonarr/config'
+
+# uid / gid
+sonarr_user_id: '{{ user_id }}'
+sonarr_group_id: '{{ group_id }}'
+
+# network
+sonarr_port: '8989'
+sonarr_hostname: 'sonarr'

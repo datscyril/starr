@@ -1,0 +1,83 @@
+---
+packages:
+  - git
+  - neovim
+  - tmux
+  - btop
+  - rsync
+hostname: nasa
+timezone: Europe/Paris
+
+# services
+
+sabnzbd_enabled: true
+jellyfin_enabled: true
+portainer_enabled: true
+prowlarr_enabled: true
+radarr_enabled: true
+sonarr_enabled: true
+traefik_enabled: true
+transmission_enabled: true
+watchtower_enabled: true
+
+minecraft_available_externally: 'true'
+plex_available_externally: 'true'
+uptime_kuma_available_externally: 'true'
+librespeed_available_externally: 'true'
+portainer_available_externally: 'true'
+jellyfin_available_externally: 'true'
+filebrowser_available_externally: 'true'
+bitwarden_available_externally: 'true'
+
+root_directory: /tank
+
+personal_user: luffy
+personal_group: luffy
+personal_directory: '{{ root_directory}}/cyril'
+personal_user_id: '1000'
+personal_group_id: '1000'
+
+user: luffy
+ansible_user: luffy
+security_sudoers_passwordless: [luffy]
+group: luffy
+email: cyril.ghali@hotmail.com
+domain: cyrilg.fr
+user_id: '1000'
+group_id: '1000'
+ansible_python_interpreter: /usr/bin/python3
+
+samba_shares_root: '{{ root_directory }}/public'
+
+downloads_root: '{{ samba_shares_root }}/downloads'
+documents_root: '{{ samba_shares_root }}/documents'
+movies_root: '{{ samba_shares_root }}/movies'
+anime_root: '{{ samba_shares_root }}/anime'
+tv_root: '{{ samba_shares_root }}/tv'
+music_root: '{{ samba_shares_root }}/music'
+videos_root: '{{ samba_shares_root }}/videos'
+podcasts_root: '{{ samba_shares_root }}/podcasts'
+books_root: '{{ samba_shares_root }}/books'
+comics_root: '{{ samba_shares_root }}/comics'
+photos_root: '{{ samba_shares_root }}/photos'
+samba_shares:
+  - name: downloads
+    path: '{{ downloads_root }}'
+
+  - name: documents
+    path: '{{ documents_root }}'
+
+  - name: movies
+    path: '{{ movies_root }}'
+
+  - name: tv
+    path: '{{ tv_root }}'
+
+  - name: anime
+    path: '{{ anime_root }}'
+
+  - name: books
+    path: '{{ books_root }}'
+
+traefik_ipwhitelist: "10.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12"
+openvpn_provider: 'NORDVPN'

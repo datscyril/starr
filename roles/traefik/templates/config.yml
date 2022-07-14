@@ -3,7 +3,7 @@ http:
   routers:
     proxmox:
       entryPoints:
-        - "websecure"
+        - "https"
       rule: "Host(`proxmox.local.{{ domain }}`)"
       middlewares:
         - default-headers
@@ -12,7 +12,7 @@ http:
       service: proxmox
     pihole:
       entryPoints:
-        - "websecure"
+        - "https"
       rule: "Host(`pihole.local.{{ domain }}`)"
       middlewares:
         - default-headers
@@ -20,7 +20,6 @@ http:
         - https-redirectscheme
       tls: {}
       service: pihole
-
 #endregion
 #region services
   services:
@@ -61,7 +60,7 @@ http:
       ipWhiteList:
         sourceRange:
         - "10.0.0.0/8"
-        - "192.168.0.0/16"
+        - "192.168.1.0/16"
         - "172.16.0.0/12"
 
     secured:

@@ -5,33 +5,26 @@
     state: directory
   with_items:
     - "{{ traefik_data_directory }}"
-    - "{{ traefik_data_directory }}/letsencrypt"
 
 - name: Template Traefik config.yml
   template:
-    src: config.yml
+    src: "{{ item }}"
     mode: 0644
-    dest: "{{ traefik_data_directory }}/config.yml"
+    dest: "{{ traefik_data_directory }}/{{ item }}"
+  loop:
+    - config.yml
+    - traefik.yml
+    - docker-compose.yml
+    - acme.json
   register: template_config
 
-- name: Template Traefik traefik.toml
-  template:
-    src: traefik.toml
-    mode: 0644
-    dest: "{{ traefik_data_directory }}/traefik.toml"
-  register: template_config
+- name: chmod acme.json
+  file:
+    path: "{{ traefik_data_directory }}/acme.json"
+    mode: '0600'
 
-- name: Traefik Docker Container
-  docker_container:
-    name: traefik
-    image: "{{ traefik_docker_image }}"
-    pull: true
-    network_mode: host
-    volumes:
-      - "{{ traefik_data_directory }}/traefik.toml:/etc/traefik/traefik.toml:ro"
-      - "{{ traefik_data_directory }}/config.yml:/etc/traefik/config.yml:ro"
-      - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    env: "{{ traefik_environment_variables }}"
-    restart_policy: unless-stopped
-    recreate: yes 
+- name: deploy Docker Compose stack
+  community.docker.docker_compose:
+    project_src: "{{ traefik_data_directory }}/"
+    files:
+      - docker-compose.yml

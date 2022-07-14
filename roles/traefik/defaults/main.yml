@@ -7,7 +7,7 @@
 traefik_enabled: false
 
 # directories
-traefik_data_directory: '{{ docker_home }}/traefik'
+traefik_data_directory: '{{ docker_home }}/traefik/data'
 
 # network
 traefik_port_http: '80'

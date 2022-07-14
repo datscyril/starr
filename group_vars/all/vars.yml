@@ -42,7 +42,7 @@ ansible_user: luffy
 security_sudoers_passwordless: [luffy]
 group: luffy
 email: cyril.ghali@hotmail.com
-domain: cyrilg.fr
+domain: getschwifty.fr
 user_id: '1000'
 group_id: '1000'
 ansible_python_interpreter: /usr/bin/python3
